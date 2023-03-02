@@ -1,27 +1,42 @@
-import itertools
+from itertools import combinations
 
+def remove_ith_char(s:str, idx):
+    return s[:idx] + s[idx+1:]
 
-def n_letter_missing(s:str, n=1):
+def skip_letter(s:str, n=1):
     length = len(s)
-    missing_positions = [[i for i in range(length)] for j in range(n)]
-    
-    miss_combinations = list(itertools.product(*missing_positions))
 
-    for i in range(len(miss_combinations)-1, -1, -1):
-        combination = miss_combinations[i]
-        if len(combination) != len(set(combination)):
-            del miss_combinations[i]
-
-    print(miss_combinations)
+    miss_combinations = list(combinations([i for i in range(length)], n))
 
     typos = []
     for combination in miss_combinations:
         typo = s
-        for position in combination:
-            typo = remove_ith_char(typo, position) 
+        for i in range(len(combination)-1, -1, -1):
+            typo = remove_ith_char(typo, combination[i]) 
         typos.append(typo)
 
     return typos
 
-def remove_ith_char(s:str, idx):
-    return s[:idx] + s[idx+1:]
+def reverse_letter(s:str):
+    typos = []
+
+    for i in range(len(s)-1, 0, -1):
+        typo = list(s)
+        typo[i-1], typo[i] = typo[i], typo[i-1]
+        typos.append(''.join(typo))
+    
+    return typos
+
+def double_letter(s:str):
+    typos = []
+
+    for i in range(len(s)):
+        typo = list(s)
+        typo.insert(i, typo[i])
+        typos.append(''.join(typo))
+
+    
+    return typos
+
+def keyboard_adjacent_letter(s:str):
+    pass
