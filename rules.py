@@ -40,3 +40,20 @@ def double_letter(s:str):
 
 def keyboard_adjacent_letter(s:str):
     pass
+
+def vowel_replace(s:str):
+    pass
+
+def homophones_replace(s: str):
+    homophones_dict = {
+        'j': ['z', 'g', ],
+        'a': ['o'],
+        'i': ['e'],
+        'c': ['s', 'k'],
+        'q': ['k'],
+        'u': ['o'],
+        's': ['sh']
+    }
+
+    pass
+
