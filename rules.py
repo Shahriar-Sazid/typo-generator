@@ -58,30 +58,32 @@ def vowel_replace(s: str):
 
 def homophones_replace(s: str):
     typos = []
-    homophones_dict = (
+    homophone_groups = [
         ('j', 'z', 'g'),
         ('a', 'o'),
         ('i', 'e'),
-        ('c', 's', 'k'),
-        ('q', 'k'),
+        ('c', 'k', 'q'),
         ('u', 'o', 'oo'),
         ('f', 'p', 'ph'),
         ('s', 'sh'),
-    )
+    ]
 
-    for homophone in homophones_dict:
+    for i in range(len(homophone_groups)):
+        homophone_groups[i] = sorted(homophone_groups[i], key=lambda x: len(x))
+
+    for homophone_group in homophone_groups:
         index_dict = {}
-        for char in homophone:
-            idx_list = [m.start() for m in re.finditer(char,s)]
+        for item in homophone_group:
+            idx_list = [m.start() for m in re.finditer(item,s)]
             for idx in idx_list:
                 index_dict[idx] = {
                     'index': idx,
-                    'length': len(char)
+                    'length': len(item)
                 }
                 
         
         indices = list(index_dict.values())
-        combined = [homophone for i in range(len(indices))]
+        combined = [homophone_group for i in range(len(indices))]
         combinations = list(product(*combined))
 
         for combination in combinations:
