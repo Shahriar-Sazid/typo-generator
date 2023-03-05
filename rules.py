@@ -60,12 +60,15 @@ def homophones_replace(s: str):
     typos = []
     homophone_groups = [
         ('j', 'z', 'g'),
+        ('g', 'gh'),
+        ('j', 'jh'),
         ('a', 'o'),
         ('i', 'e'),
         ('c', 'k', 'q'),
         ('u', 'o', 'oo'),
         ('f', 'p', 'ph'),
         ('s', 'sh'),
+        ('v', 'bh')
     ]
 
     for i in range(len(homophone_groups)):
