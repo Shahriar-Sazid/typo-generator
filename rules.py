@@ -1,4 +1,5 @@
 from itertools import combinations, permutations, product
+from keyboard_distance import qwertyKeyboardArray
 import re
 
 
@@ -49,7 +50,22 @@ def double_letter(s: str):
 
 
 def keyboard_adjacent_letter(s: str):
-    pass
+    typos = []
+    for j in range(len(s)):
+        letter = s[j].lower()
+        for row in qwertyKeyboardArray:
+            for i in range(len(row)):
+                char = row[i]
+                if letter == char:
+                    prev = row[i-1] if i-1>=0 else None
+                    nxt = row[i+1] if i+1<=len(row)-1 else None  
+                    for item in [nxt, prev]:
+                        if item and item.isalpha():
+                            typo = s 
+                            typo = typo[:j] + item + typo[j+1:]
+                            typos.append(typo)
+
+    return typos
 
 
 def vowel_replace(s: str):
@@ -62,7 +78,7 @@ def homophones_replace(s: str):
         ('j', 'z', 'g'),
         ('g', 'gh'),
         ('j', 'jh'),
-        ('a', 'o'),
+        ('a', 'o', 'e'),
         ('i', 'e'),
         ('c', 'k', 'q'),
         ('u', 'o', 'oo'),
